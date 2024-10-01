@@ -70,12 +70,13 @@
     <distributionManagement>
         <repository>
             <id>nexus-releases</id>
-            <url>http://http://192.168.0.106:8085/repository/maven-releases/</url> 
+            <url>http://192.168.0.106:8085/repository/maven-releases/</url> <!-- Corrected URL -->
         </repository>
         <snapshotRepository>
             <id>nexus-snapshots</id>
-            <url>http://http://192.168.0.106:8085/repository/maven-snapshots/</url> 
+            <url>http://192.168.0.106:8085/repository/maven-snapshots/</url> <!-- Corrected URL -->
         </snapshotRepository>
     </distributionManagement>
 
 </project>
+
