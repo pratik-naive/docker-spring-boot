@@ -7,9 +7,10 @@
     <groupId>com.devops.coach</groupId>
     <artifactId>docker-spring-boot</artifactId>
     <version>1.0</version>
+    <packaging>jar</packaging> 
 
     <name>docker-spring-boot</name>
-    <url></url>
+    <url>https://github.com/pratik-naive/docker-spring-boot.git</url>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -25,7 +26,6 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -39,18 +39,15 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!-- debugging -->
+        <!-- Debugging -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
-
     </dependencies>
 
     <build>
-
         <finalName>spring-boot-web</finalName>
 
         <plugins>
@@ -67,9 +64,18 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <url>http://http://192.168.0.106:8085/repository/maven-releases/</url> 
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>http://http://192.168.0.106:8085/repository/maven-snapshots/</url> 
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
