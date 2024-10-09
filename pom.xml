@@ -15,7 +15,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.4.RELEASE</version>
+        <version>2.7.0</version> <!-- Consider upgrading to a newer version -->
+        <!-- Or use 3.x if you're using JDK 17 -->
     </parent>
 
     <properties>
@@ -54,6 +55,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.0.0</version> <!-- Consider specifying a version -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -70,11 +72,11 @@
     <distributionManagement>
         <repository>
             <id>nexus-releases</id>
-            <url>http://192.168.0.106:8085/repository/maven-releases/</url> <!-- Corrected URL -->
+            <url>http://192.168.0.106:8085/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>nexus-snapshots</id>
-            <url>http://192.168.0.106:8085/repository/maven-snapshots/</url> <!-- Corrected URL -->
+            <url>http://192.168.0.106:8085/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
