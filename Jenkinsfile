@@ -3,6 +3,11 @@ pipeline {
 
     environment {
         registry = "211223789150.dkr.ecr.us-east-1.amazonaws.com/my-docker-repo"
+        NEXUS_VERSION = "nexus3"
+        NEXUS_PROTOCOL = "http"
+        NEXUS_URL = "http://192.168.0.106:8085"
+        NEXUS_REPOSITORY = "MavenSpringBootApp"
+        NEXUS_CREDENTIAL_ID = "India@#$1234"
     }
     stages {
         stage('Checkout') {
