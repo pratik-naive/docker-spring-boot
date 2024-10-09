@@ -9,6 +9,7 @@ pipeline {
         NEXUS_REPOSITORY = "MavenSpringBootApp"
         NEXUS_CREDENTIAL_ID = "nexus_Cred"
     }
+    
     stages {
         stage('Checkout') {
             steps {
@@ -16,13 +17,35 @@ pipeline {
             }
         }
         
-        stage ("Build JAR") {
+        stage("Build JAR") {
             steps {
                 sh "mvn clean install"
             }
         }
         
-        stage ("Build Image") {
+        stage("Upload to Nexus") {  // Added stage for uploading JAR to Nexus
+            steps {
+                script {
+                    nexusArtifactUploader artifacts: [
+                        [
+                            artifactId: 'docker-spring-boot',
+                            classifier: '',
+                            file: 'target/docker-spring-boot-1.0.jar',  // Ensure this matches your artifact name
+                            groupId: 'com.devops.coach',
+                            packaging: 'jar',
+                            version: '1.0'
+                        ]
+                    ],
+                    credentialsId: env.NEXUS_CREDENTIAL_ID,
+                    nexusUrl: env.NEXUS_URL,
+                    nexusVersion: 'nexus3',
+                    protocol: env.NEXUS_PROTOCOL,
+                    repository: env.NEXUS_REPOSITORY
+                }
+            }
+        }
+        
+        stage("Build Image") {
             steps {
                 script {
                     docker.build registry
@@ -30,26 +53,25 @@ pipeline {
             }
         }
         
-        stage ("Push to ECR") {
+        stage("Push to ECR") {
             steps {
                 script {
-                    sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 211223789150.dkr.ecr.us-east-1.amazonaws.com"
-                    sh "docker push 211223789150.dkr.ecr.us-east-1.amazonaws.com/my-docker-repo:latest"
-                    
+                    sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${registry}"
+                    sh "docker push ${registry}:latest"
                 }
             }
         }
         
-        stage ("Helm package") {
+        stage("Helm Package") {
             steps {
-                    sh "helm package springboot"
-                }
+                sh "helm package springboot"
             }
-                
-        stage ("Helm install") {
+        }
+        
+        stage("Helm Install") {
             steps {
-                    sh "helm upgrade myrelease-21 springboot-0.1.0.tgz"
-                }
+                sh "helm upgrade --install myrelease-21 springboot-0.1.0.tgz"
             }
+        }
     }
 }
