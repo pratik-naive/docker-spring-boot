@@ -7,7 +7,7 @@ pipeline {
         NEXUS_PROTOCOL = "http"
         NEXUS_URL = "http://192.168.0.106:8085"
         NEXUS_REPOSITORY = "MavenSpringBootApp"
-        NEXUS_CREDENTIAL_ID = "India@#$1234"
+        NEXUS_CREDENTIAL_ID = "nexus_Cred"
     }
     stages {
         stage('Checkout') {
